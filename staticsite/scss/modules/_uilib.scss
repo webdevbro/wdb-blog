@@ -1,0 +1,121 @@
+/* FORM CONTROLS */
+/* input */
+.formControl {
+  width: 200px;
+  border: 1px solid transparent;
+  padding: 0.75rem;
+  border-radius: 4px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  &:focus {
+    outline: 0;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  &__block {
+    display: block;
+    width: 100%;
+  }
+  &__big {
+    padding: 1.2rem 1rem;
+  }
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  line-height: 1.75;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 5px 22px;
+  border-radius: 4px;
+  background-color: $light1;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    background-color: $light3;
+  }
+
+  &-primary {
+    background-color: $primary;
+    color: rgb(255, 255, 255);
+    &:hover {
+      background-color: darken($primary, 12%);
+    }
+  }
+  &-secondary {
+    background-color: $secondary;
+    color: rgb(255, 255, 255);
+    &:hover {
+      background-color: darken($secondary, 12%);
+    }
+  }
+
+  &-block {
+    display: block;
+    width: 100%;
+  }
+  &-big {
+    padding: 1.2rem 1rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  &-small {
+    padding: 0.5rem 2rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+}
+
+.text-muted {
+  color: $dark6;
+}
+.lead {
+  font-size: 2rem;
+  line-height: 1.5;
+}
+.strong {
+  font-weight: 600;
+}
+.text-white {
+  color: $light1;
+}
+/* ALERT */
+.alert {
+  display: block;
+  width: 70%;
+  margin: 0px auto 2rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  &__danger {
+    border: 1px solid #f48fb1;
+    background-color: #f8bbd0;
+    color: darken(#ad1457, 15%);
+  }
+
+  &__small {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    text-align: left;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 5px;
+  }
+}
+
+.error-list {
+  margin: 0px 0px 0px 1rem;
+  padding: 0px;
+}

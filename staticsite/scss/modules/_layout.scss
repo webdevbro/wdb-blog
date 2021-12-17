@@ -1,0 +1,14 @@
+/* CONTAINER */
+
+.siteWrapper {
+  width: 100%;
+  height: 100vh;
+  background-color: $light1;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  max-width: 1200px;
+  margin: 0px auto;
+  position: relative;
+}
