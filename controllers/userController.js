@@ -1,4 +1,20 @@
 const User = require("../models/User");
+const Post = require("../models/Post");
+
+/* MUST BE LOGGED IN */
+exports.mustBeLoggedIn = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    req.flash(
+      "errors",
+      "You must be logged in to perform that action.",
+    );
+    req.session.save(() => {
+      res.redirect("/");
+    });
+  }
+};
 
 /* LOGIN */
 exports.login = (req, res) => {
@@ -9,6 +25,7 @@ exports.login = (req, res) => {
       req.session.user = {
         avatar: user.avatar,
         username: user.data.username,
+        _id: user.data._id,
       };
       req.session.save(() => {
         res.redirect("/");
@@ -36,6 +53,7 @@ exports.register = (req, res) => {
       req.session.user = {
         username: user.data.username,
         avatar: user.avatar,
+        _id: user.data._id,
       };
       req.session.save(() => {
         res.redirect("/");
@@ -50,18 +68,40 @@ exports.register = (req, res) => {
       });
     });
 };
-
 /* HOME! */
 exports.home = (req, res) => {
   if (req.session.user) {
-    res.render("home-dashboard", {
-      username: req.session.user.username,
-      avatar: req.session.user.avatar,
-    });
+    res.render("home-dashboard");
   } else {
     res.render("home-guest", {
-      errors: req.flash("errors"),
       regErrors: req.flash("regErrors"),
     });
   }
+};
+
+/* IF USER EXISTS */
+exports.ifUserExists = (req, res, next) => {
+  User.findByUsername(req.params.username)
+    .then((userDocument) => {
+      req.profileUser = userDocument;
+      next();
+    })
+    .catch(() => {
+      res.render("404");
+    });
+};
+/* PROFILE POSTS */
+exports.profilePostsScreen = (req, res) => {
+  // request post model for posts by author id
+  Post.findByAuthorId(req.profileUser._id)
+    .then((posts) => {
+      res.render("profile", {
+        posts: posts,
+        profileUsername: req.profileUser.username,
+        profileAvatar: req.profileUser.avatar,
+      });
+    })
+    .catch(() => {
+      res.render("404");
+    });
 };

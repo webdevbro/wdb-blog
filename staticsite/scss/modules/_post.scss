@@ -1,0 +1,59 @@
+.post {
+  &__header {
+    &--title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $light4;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      &-text {
+        font-size: 2.4rem;
+        font-weight: 500;
+      }
+      &-buttons {
+        display: flex;
+        flex-direction: row;
+        .icon {
+          font-size: 1.8rem;
+          color: $secondary;
+          padding: 0px;
+          margin: 0px;
+        }
+        .btnIcon {
+          border: none;
+          background-color: transparent;
+          margin-left: 1rem;
+          font-size: 1.8rem;
+          color: $danger;
+          padding: 0px;
+          margin: 0px;
+          margin-left: 1.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+    &--meta {
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      span {
+        margin-left: 1rem;
+        font-size: 1.4rem;
+        line-height: 0;
+      }
+    }
+  }
+  &__body {
+    p {
+      color: $dark8;
+      font-size: 1.8rem;
+      margin-top: 0px;
+      text-align: justify;
+    }
+  }
+}

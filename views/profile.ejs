@@ -1,0 +1,94 @@
+<%- include("includes/header.ejs") %>
+<main class="mainContent">
+  <div class="container">
+    <%- include("includes/flash") %>
+    <div class="contentWrapper contentWrapper--narrow">
+      <div class="profile">
+        <div class="profile__header">
+          <img
+            src="<%= profileAvatar %>"
+            class="avatar-tiny"
+            alt="username"
+          />
+          <h2><%= profileUsername %></h2>
+          <form action="#" method="POST">
+            <button class="btn btn-primary btn-small">
+              Follow <i class="fas fa-user-plus"></i>
+            </button>
+            <!-- <button class="btn btn-danger btn-small">
+              Stop following
+              <i class="fas fa-user-times"></i>
+            </button> -->
+          </form>
+        </div>
+        <div class="profile__tab">
+          <input
+            type="radio"
+            class="profile__tab-radio"
+            name="tabs"
+            id="posts"
+            checked
+          />
+          <label for="posts" class="profile__tab-label"
+            >Posts</label
+          >
+          <div class="profile__tab-content">
+            <ul class="profile__tab-content-ul">
+              <% posts.map((post) => { %>
+              <li>
+                <a href="/post/<%= post._id %>" class=""
+                  ><img
+                    src="<%=post.author.avatar %>"
+                    class="avatar-tiny"
+                  /><strong><%= post.title %></strong
+                  ><span
+                    >&nbsp; on&nbsp;<%=
+                    post.createdDate.getMonth() + 1 %>/<%=
+                    post.createdDate.getDate() %>/<%=
+                    post.createdDate.getFullYear() %></span
+                  ></a
+                >
+              </li>
+              <% }) %>
+            </ul>
+          </div>
+          <input
+            type="radio"
+            class="profile__tab-radio"
+            name="tabs"
+            id="followers"
+          />
+          <label for="followers" class="profile__tab-label"
+            >Followers: 3</label
+          >
+          <div class="profile__tab-content">
+            <ul class="profile__tab-content-ul">
+              <li>Followers One</li>
+              <li>Followers Two</li>
+              <li>Followers Three</li>
+              <li>Followers Four</li>
+            </ul>
+          </div>
+          <input
+            type="radio"
+            class="profile__tab-radio"
+            name="tabs"
+            id="following"
+          />
+          <label for="following" class="profile__tab-label"
+            >Following: 6</label
+          >
+          <div class="profile__tab-content">
+            <ul class="profile__tab-content-ul">
+              <li>Following One</li>
+              <li>Following Two</li>
+              <li>Following Three</li>
+              <li>Following Four</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<%- include("includes/footer.ejs") %>

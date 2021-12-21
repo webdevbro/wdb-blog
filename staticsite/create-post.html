@@ -75,24 +75,60 @@
       <main class="mainContent">
         <div class="container">
           <div
-            class="contentWrapper contentWrapper--narrow"
+            class="
+              contentWrapper contentWrapper--extranarrow
+            "
           >
             <div class="contentWrapper__welcome--noresults">
-              <div class="text-center">
-                <h2>
-                  Hello
-                  <span class="strong">username</span>, your
-                  feed is empty.
+              <div class="">
+                <h2 class="bold border-bottom">
+                  Create post
                 </h2>
-                <p class="lead text-muted">
-                  Your feed displays the latest posts from
-                  the people you follow. If you don&rsquo;t
-                  have any friends to follow that&rsquo;s
-                  okay; you can use the &ldquo;Search&rdquo;
-                  feature in the top menu bar to find
-                  content written by people with similar
-                  interests and then follow them.
-                </p>
+                <form action="#" method="POST">
+                  <div class="formGroup">
+                    <label
+                      for="post-title"
+                      class="text-muted"
+                      ><small>Title</small></label
+                    >
+                    <input
+                      required
+                      type="text"
+                      placeholder=""
+                      autocomplete="off"
+                      name="title"
+                      id="post-title"
+                      class="
+                        formControl
+                        formControl__big
+                        formControl__block
+                      "
+                    />
+                  </div>
+                  <div class="formGroup">
+                    <label
+                      for="post-body"
+                      class="text-muted"
+                      ><small>Content</small></label
+                    >
+                    <textarea
+                      required
+                      name="body"
+                      id="post-body"
+                      type="text"
+                      rows="10"
+                      class="
+                        formControl
+                        formControl__big
+                        formControl__block
+                        formControl__body
+                      "
+                    ></textarea>
+                  </div>
+                  <button class="btn btn-secondary mt-lg">
+                    Save New Post
+                  </button>
+                </form>
               </div>
             </div>
           </div>

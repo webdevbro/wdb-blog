@@ -21,3 +21,8 @@ p {
   font-size: 1.6rem;
   color: $fontColor;
 }
+a {
+  text-decoration: none;
+  color: $secondary;
+  font-weight: 500;
+}
