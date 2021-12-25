@@ -28,3 +28,15 @@
     margin: 0px auto;
   }
 }
+
+/* CONTAINER */
+
+.mainContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  &__narrow {
+    max-width: 732px;
+    margin: 0px auto;
+  }
+}
