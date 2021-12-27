@@ -4,6 +4,37 @@
     <%- include("includes/flash") %>
     <div class="contentWrapper contentWrapper--narrow">
       <div class="contentWrapper__welcome--noresults">
+        <% if (posts.length) { %>
+        <div class="text-center">
+          <h2>
+            Hello
+            <span class="strong"><%= user.username %></span>, your latest
+            posts:
+          </h2>
+        </div>
+        <div class="profile__tabContent">
+          <ul class="profile__tabContent-ul">
+            <% posts.map((post) => { %>
+            <li>
+              <a href="/post/<%= post._id %>">
+                <img
+                  class="avatar-tiny"
+                  src="<%=post.author.avatar %>"
+                />
+                <strong><%= post.title %></strong
+                ><span>&nbsp;
+                by <%= post.author.username %><span
+                  >&nbsp; on&nbsp;<%=
+                  post.createdDate.getMonth() + 1 %>/<%=
+                  post.createdDate.getDate() %>/<%=
+                  post.createdDate.getFullYear() %></span
+                >
+              </a>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
+        <% } else { %>
         <div class="text-center">
           <h2>
             Hello
@@ -19,6 +50,7 @@
             similar interests and then follow them.
           </p>
         </div>
+        <% } %>
       </div>
     </div>
   </div>

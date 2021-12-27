@@ -33,22 +33,21 @@
           </form>
           <% } } %>
         </div>
+
         <%- include("includes/shared-profile.ejs") %>
         <div class="profile__tabContent">
           <ul class="profile__tabContent-ul">
-            <% posts.map((post) => { %>
+            <% following.forEach((followPerson) => { %>
             <li>
-              <a href="/post/<%= post._id %>">
+              <a
+                href="/profile/<%= followPerson.username %>"
+              >
                 <img
                   class="avatar-tiny"
-                  src="<%=post.author.avatar %>"
+                  src="<%=followPerson.avatar %>"
                 />
-                <strong><%= post.title %></strong
-                ><span
-                  >&nbsp; on&nbsp;<%=
-                  post.createdDate.getMonth() + 1 %>/<%=
-                  post.createdDate.getDate() %>/<%=
-                  post.createdDate.getFullYear() %></span
+                <strong
+                  ><%= followPerson.username %></strong
                 >
               </a>
             </li>
