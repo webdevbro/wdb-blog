@@ -5,6 +5,14 @@
           </h4>
         </div>
       </footer>
+
+      <% if (user) { %>
+        <div
+        id="chatWrapper"
+        class="chatWrapper chat"
+        ></div>
+        <script src="/socket.io/socket.io.js"></script>
+      <% } %>
     </div>
     <!-- class="container" -->
     <script src="/main-bundled.js"></script>

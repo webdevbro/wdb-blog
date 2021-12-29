@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"
@@ -14,7 +11,9 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="/style.css" />
-    <title>WDB Blog</title>
+    <title>
+      <%= typeof(title) == "undefined" ? "WDB - Blog" : `${title} - WDB-Blog` %>
+    </title>
   </head>
   <body>
     <div class="siteWrapper">
@@ -33,9 +32,7 @@
           <% if (user) { %>
           <div class="header__links">
             <div class="header__links--item">
-              <a
-                href="#"
-                class="text-white header-search-icon"
+              <a href="#" class="text-white header-search-icon"
                 ><i class="fas fa-search"></i
               ></a>
             </div>
@@ -45,39 +42,23 @@
               ></span>
             </div>
             <div class="header__links--item">
-              <a
-                href="/profile/<%= user.username %>"
-                class="header-profile"
-              >
+              <a href="/profile/<%= user.username %>" class="header-profile">
                 <img src="<%= user.avatar %>" />
               </a>
             </div>
             <div class="header__links--item">
-              <a
-                href="/create-post"
-                class="btn btn-secondary btn-small"
-              >
+              <a href="/create-post" class="btn btn-secondary btn-small">
                 Create post
               </a>
             </div>
           </div>
-          <form
-            action="/logout"
-            method="POST"
-            class="header__form"
-          >
+          <form action="/logout" method="POST" class="header__form">
             <div class="header__form--item">
-              <button class="btn btn-primary btn-small">
-                Sign out
-              </button>
+              <button class="btn btn-primary btn-small">Sign out</button>
             </div>
           </form>
           <% } else { %>
-          <form
-            action="/login"
-            method="POST"
-            class="header__form"
-          >
+          <form action="/login" method="POST" class="header__form">
             <div class="header__form--item">
               <input
                 type="text"
@@ -97,9 +78,7 @@
               />
             </div>
             <div class="header__form--item">
-              <button class="btn btn-primary">
-                Sign in
-              </button>
+              <button class="btn btn-primary">Sign in</button>
             </div>
           </form>
           <% } %>

@@ -26,7 +26,7 @@ export default class Search {
     this.previousValue = "";
   }
 
-  // 2. Eventsccc
+  // 2. Events
 
   events() {
     this.searchInput.addEventListener("keyup", () => {

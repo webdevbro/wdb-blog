@@ -9,10 +9,7 @@ exports.createPost = (req, res) => {
   post
     .createPost()
     .then((newId) => {
-      req.flash(
-        "success",
-        "Successfully created a new post!",
-      );
+      req.flash("success", "Successfully created a new post!");
       req.session.save(() => {
         res.redirect(`/post/${newId}`);
       });
@@ -29,12 +26,10 @@ exports.createPost = (req, res) => {
 
 exports.viewSingle = async (req, res) => {
   try {
-    let post = await Post.findSingleById(
-      req.params.id,
-      req.visitorId,
-    );
+    let post = await Post.findSingleById(req.params.id, req.visitorId);
     res.render("single-post-screen", {
       post: post,
+      title: post.title,
     });
   } catch (err) {
     res.render("404");
@@ -45,20 +40,14 @@ exports.viewSingle = async (req, res) => {
 
 exports.viewEditScreen = async (req, res) => {
   try {
-    let post = await Post.findSingleById(
-      req.params.id,
-      req.visitorId,
-    );
+    let post = await Post.findSingleById(req.params.id, req.visitorId);
 
     if (post.isVisitorOwner) {
       res.render("edit-post", {
         post: post,
       });
     } else {
-      req.flash(
-        "errors",
-        "You don't have permission to perform that action.",
-      );
+      req.flash("errors", "You don't have permission to perform that action.");
       req.session.save(() => {
         res.redirect("/");
       });
@@ -67,12 +56,9 @@ exports.viewEditScreen = async (req, res) => {
     res.render("404");
   }
 };
+
 exports.editPost = (req, res) => {
-  let post = new Post(
-    req.body,
-    req.visitorId,
-    req.params.id,
-  );
+  let post = new Post(req.body, req.visitorId, req.params.id);
   post
     .updatePost()
     .then((status) => {
@@ -92,10 +78,7 @@ exports.editPost = (req, res) => {
       }
     })
     .catch(() => {
-      req.flash(
-        "errors",
-        "You don't have permission to perform that action.",
-      );
+      req.flash("errors", "You don't have permission to perform that action.");
       req.session.save();
       res.redirect("/");
     });
@@ -106,16 +89,11 @@ exports.deletePost = (req, res) => {
     .then(() => {
       req.flash("success", "Post successfully deleted!");
       req.session.save(() => {
-        res.redirect(
-          `/profile/${req.session.user.username}`,
-        );
+        res.redirect(`/profile/${req.session.user.username}`);
       });
     })
     .catch(() => {
-      req.flash(
-        "errors",
-        "You don't have permission to perform that action.",
-      );
+      req.flash("errors", "You don't have permission to perform that action.");
       req.session.save(() => {
         res.redirect("/");
       });
