@@ -6,20 +6,14 @@
       <div class="contentWrapper post">
         <div class="post__header">
           <div class="post__header--title">
-            <div class="post__header--title-text">
-              <%= post.title %>
-            </div>
+            <div class="post__header--title-text"><%= post.title %></div>
             <% if (post.isVisitorOwner) { %>
             <div class="post__header--title-buttons">
-              <a
-                href="/post/<%= post._id%>/edit"
-                class="icon"
+              <a href="/post/<%= post._id%>/edit" class="icon"
                 ><i class="fas fa-edit"></i
               ></a>
-              <form
-                action="/post/<%= post._id %>/delete"
-                method="POST"
-              >
+              <form action="/post/<%= post._id %>/delete" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <button class="btnIcon btn-delete">
                   <i class="fas fa-trash"></i>
                 </button>
@@ -29,9 +23,7 @@
           </div>
           <div class="post__header--meta">
             <a href="/profile/<%= post.author.username %>"
-              ><img
-                class="avatar-tiny"
-                src="<%= post.author.avatar %>"
+              ><img class="avatar-tiny" src="<%= post.author.avatar %>"
             /></a>
             <span
               >posted by
@@ -39,14 +31,12 @@
                 ><%= post.author.username %></a
               >
               on <%= post.createdDate.getMonth() + 1 %>/<%=
-              post.createdDate.getDate() %>/<%=
-              post.createdDate.getFullYear() %></span
+              post.createdDate.getDate() %>/<%= post.createdDate.getFullYear()
+              %></span
             >
           </div>
         </div>
-        <div class="post__body">
-          <%- filterUserHTML(post.body) %>
-        </div>
+        <div class="post__body"><%- filterUserHTML(post.body) %></div>
       </div>
     </div>
   </div>

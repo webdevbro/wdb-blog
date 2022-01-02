@@ -5,28 +5,19 @@
     <div class="contentWrapper contentWrapper--extranarrow">
       <div class="profile">
         <div class="profile__header">
-          <img
-            src="<%= profileAvatar %>"
-            class="avatar-tiny"
-            alt="username"
-          />
+          <img src="<%= profileAvatar %>" class="avatar-tiny" alt="username" />
           <h2><%= profileUsername %></h2>
-          <% if (user && !isVisitorsProfile) { if
-          (isFollowing) { %>
-          <form
-            action="/removeFollow/<%= profileUsername %>"
-            method="POST"
-          >
+          <% if (user && !isVisitorsProfile) { if (isFollowing) { %>
+          <form action="/removeFollow/<%= profileUsername %>" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button class="btn btn-danger btn-small">
               Stop following
               <i class="fas fa-user-times"></i>
             </button>
           </form>
           <% } else { %>
-          <form
-            action="/addFollow/<%= profileUsername %>"
-            method="POST"
-          >
+          <form action="/addFollow/<%= profileUsername %>" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button class="btn btn-primary btn-small">
               Follow <i class="fas fa-user-plus"></i>
             </button>
@@ -39,14 +30,10 @@
             <% posts.map((post) => { %>
             <li>
               <a href="/post/<%= post._id %>">
-                <img
-                  class="avatar-tiny"
-                  src="<%=post.author.avatar %>"
-                />
+                <img class="avatar-tiny" src="<%=post.author.avatar %>" />
                 <strong><%= post.title %></strong
                 ><span
-                  >&nbsp; on&nbsp;<%=
-                  post.createdDate.getMonth() + 1 %>/<%=
+                  >&nbsp; on&nbsp;<%= post.createdDate.getMonth() + 1 %>/<%=
                   post.createdDate.getDate() %>/<%=
                   post.createdDate.getFullYear() %></span
                 >

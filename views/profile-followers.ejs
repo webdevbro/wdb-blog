@@ -5,28 +5,19 @@
     <div class="contentWrapper contentWrapper--extranarrow">
       <div class="profile">
         <div class="profile__header">
-          <img
-            src="<%= profileAvatar %>"
-            class="avatar-tiny"
-            alt="username"
-          />
+          <img src="<%= profileAvatar %>" class="avatar-tiny" alt="username" />
           <h2><%= profileUsername %></h2>
-          <% if (user && !isVisitorsProfile) { if
-          (isFollowing) { %>
-          <form
-            action="/removeFollow/<%= profileUsername %>"
-            method="POST"
-          >
+          <% if (user && !isVisitorsProfile) { if (isFollowing) { %>
+          <form action="/removeFollow/<%= profileUsername %>" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button class="btn btn-danger btn-small">
               Stop following
               <i class="fas fa-user-times"></i>
             </button>
           </form>
           <% } else { %>
-          <form
-            action="/addFollow/<%= profileUsername %>"
-            method="POST"
-          >
+          <form action="/addFollow/<%= profileUsername %>" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button class="btn btn-primary btn-small">
               Follow <i class="fas fa-user-plus"></i>
             </button>
@@ -40,10 +31,7 @@
             <% followers.map((follower) => { %>
             <li>
               <a href="/profile/<%= follower.username %>">
-                <img
-                  class="avatar-tiny"
-                  src="<%=follower.avatar %>"
-                />
+                <img class="avatar-tiny" src="<%=follower.avatar %>" />
                 <strong><%= follower.username %></strong>
               </a>
             </li>

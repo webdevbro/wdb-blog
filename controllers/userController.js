@@ -2,18 +2,25 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const Follow = require("../models/Follow");
 
-/* SHARED PROFILE DATA */
-exports.sharedProfileData = async function (
-  req,
-  res,
-  next,
-) {
+exports.doesUsernameExist = function (req, res) {
+  User.findByUsername(req.body.username)
+    .then(() => {
+      res.json(true);
+    })
+    .catch(() => {
+      res.json(false);
+    });
+};
+exports.doesEmailExist = async function (req, res) {
+  let emailBool = await User.doesEmailExist(req.body.email);
+  res.json(emailBool);
+};
+
+exports.sharedProfileData = async function (req, res, next) {
   let isVisitorsProfile = false;
   let isFollowing = false;
   if (req.session.user) {
-    isVisitorsProfile = req.profileUser._id.equals(
-      req.session.user._id,
-    );
+    isVisitorsProfile = req.profileUser._id.equals(req.session.user._id);
     isFollowing = await Follow.isVisitorFollowing(
       req.profileUser._id,
       req.visitorId,
@@ -24,21 +31,14 @@ exports.sharedProfileData = async function (
 
   // retrieve post, follower, and following counts
 
-  let postsCountPromise = Post.countPostsByAuthor(
-    req.profileUser._id,
-  );
-  let followersCountPromise = Follow.countFollowersById(
-    req.profileUser._id,
-  );
-  let followingCountPromise = Follow.countFollowingById(
-    req.profileUser._id,
-  );
-  let [postsCount, followersCount, followingCount] =
-    await Promise.all([
-      postsCountPromise,
-      followersCountPromise,
-      followingCountPromise,
-    ]);
+  let postsCountPromise = Post.countPostsByAuthor(req.profileUser._id);
+  let followersCountPromise = Follow.countFollowersById(req.profileUser._id);
+  let followingCountPromise = Follow.countFollowingById(req.profileUser._id);
+  let [postsCount, followersCount, followingCount] = await Promise.all([
+    postsCountPromise,
+    followersCountPromise,
+    followingCountPromise,
+  ]);
   req.postsCount = postsCount;
   req.followersCount = followersCount;
   req.followingCount = followingCount;
@@ -51,10 +51,7 @@ exports.mustBeLoggedIn = (req, res, next) => {
   if (req.session.user) {
     next();
   } else {
-    req.flash(
-      "errors",
-      "You must be logged in to perform that action.",
-    );
+    req.flash("errors", "You must be logged in to perform that action.");
     req.session.save(() => {
       res.redirect("/");
     });
@@ -171,9 +168,7 @@ exports.profilePostsScreen = (req, res) => {
 /* PROFILE POSTS */
 exports.profileFollowersScreen = async function (req, res) {
   try {
-    let followers = await Follow.getFollowersById(
-      req.profileUser._id,
-    );
+    let followers = await Follow.getFollowersById(req.profileUser._id);
     res.render("profile-followers", {
       currentPage: "followers",
       followers: followers,
@@ -195,9 +190,7 @@ exports.profileFollowersScreen = async function (req, res) {
 /* PROFILE POSTS */
 exports.profileFollowingScreen = async function (req, res) {
   try {
-    let following = await Follow.getFollowingById(
-      req.profileUser._id,
-    );
+    let following = await Follow.getFollowingById(req.profileUser._id);
     res.render("profile-following", {
       currentPage: "following",
       following: following,

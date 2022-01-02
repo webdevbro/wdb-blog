@@ -683,11 +683,13 @@ a {
 /* FORM CONTROLS */
 /* input */
 .formControl {
+  position: static;
   width: 200px;
   border: 1px solid transparent;
   padding: 0.75rem;
   border-radius: 4px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  z-index: 2;
 }
 .formControl:focus {
   outline: 0;
@@ -703,6 +705,7 @@ a {
 }
 
 .formGroup {
+  position: relative;
   display: block;
   width: 100%;
   margin-bottom: 1.6rem;
@@ -820,7 +823,7 @@ a {
   display: block;
   width: 70%;
   max-width: 732px;
-  margin: 0px auto 2rem;
+  margin: 0px auto 0.5rem;
   text-align: center;
   font-size: 1.6rem;
   font-weight: 500;
@@ -845,6 +848,19 @@ a {
   text-align: left;
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 5px;
+}
+
+.liveValidateMessage {
+  transition: all 0.5s ease-out;
+  transform: translateY(-10%);
+  opacity: 0;
+  width: auto !important;
+  position: absolute;
+  z-index: 1;
+}
+.liveValidateMessage__visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .error-list {

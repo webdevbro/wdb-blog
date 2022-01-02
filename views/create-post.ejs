@@ -18,11 +18,7 @@
                 autocomplete="off"
                 name="title"
                 id="post-title"
-                class="
-                  formControl
-                  formControl__big
-                  formControl__block
-                "
+                class="formControl formControl__big formControl__block"
               />
             </div>
             <div class="formGroup">
@@ -43,9 +39,8 @@
                 "
               ></textarea>
             </div>
-            <button class="btn btn-secondary mt-lg">
-              Save New Post
-            </button>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button class="btn btn-secondary mt-lg">Save New Post</button>
           </form>
         </div>
       </div>

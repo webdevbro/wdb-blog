@@ -2,8 +2,9 @@ import axios from "axios";
 import DOMPurify from "dompurify";
 
 export default class Search {
-  // 1. Select DOM elements / keep track of useful data
+
   constructor() {
+    this._csrf = document.querySelector('[name="_csrf"]').value;
     this.injectHTML();
     this.headerSearchIcon = document.querySelector(
       ".header-search-icon",
@@ -25,8 +26,6 @@ export default class Search {
     this.typingWaitTimer;
     this.previousValue = "";
   }
-
-  // 2. Events
 
   events() {
     this.searchInput.addEventListener("keyup", () => {
@@ -70,6 +69,7 @@ export default class Search {
   sendRequest() {
     axios
       .post("/search", {
+        _csrf: this._csrf,
         searchTerm: this.searchInput.value,
       })
       .then((response) => {
@@ -126,16 +126,19 @@ export default class Search {
   showLoaderIcon() {
     this.loaderIcon.classList.add("circleLoader__visible");
   }
+
   hideLoaderIcon() {
     this.loaderIcon.classList.remove(
       "circleLoader__visible",
     );
   }
+
   showResultsArea() {
     this.resultsArea.classList.add(
       "liveSearchResults__visible",
     );
   }
+
   hideResultsArea() {
     this.resultsArea.classList.remove(
       "liveSearchResults__visible",
@@ -148,6 +151,7 @@ export default class Search {
       this.searchInput.focus();
     }, 50);
   }
+
   closeSesami() {
     this.overlay.classList.remove("searchOverlay__visible");
   }
