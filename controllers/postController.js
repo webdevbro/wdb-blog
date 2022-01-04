@@ -24,6 +24,18 @@ exports.createPost = (req, res) => {
     });
 };
 
+exports.apiCreatePost = (req, res) => {
+  let post = new Post(req.body, req.apiUser._id);
+  post
+    .createPost()
+    .then((newId) => {
+      res.json("Congrats, new post was successfully created!");
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+};
+
 exports.viewSingle = async (req, res) => {
   try {
     let post = await Post.findSingleById(req.params.id, req.visitorId);
@@ -97,6 +109,16 @@ exports.deletePost = (req, res) => {
       req.session.save(() => {
         res.redirect("/");
       });
+    });
+};
+
+exports.apiDeletePost = (req, res) => {
+  Post.delete(req.params.id, req.apiUser._id)
+    .then(() => {
+      res.json("successfully deleted post");
+    })
+    .catch(() => {
+      res.json("you do not have permission to perform that action");
     });
 };
 

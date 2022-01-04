@@ -1,6 +1,18 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Follow = require("../models/Follow");
+const jwt = require("jsonwebtoken");
+const env = require("dotenv");
+
+exports.apiGetPostsByUsername = async (req, res) => {
+  try {
+    let authorDoc = await User.findByUsername(req.params.username);
+    let posts = await Post.findByAuthorId(authorDoc._id);
+    res.json(posts);
+  } catch (error) {
+    res.json("Invalid user requested");
+  }
+};
 
 exports.doesUsernameExist = function (req, res) {
   User.findByUsername(req.body.username)
@@ -11,6 +23,7 @@ exports.doesUsernameExist = function (req, res) {
       res.json(false);
     });
 };
+
 exports.doesEmailExist = async function (req, res) {
   let emailBool = await User.doesEmailExist(req.body.email);
   res.json(emailBool);
@@ -58,6 +71,15 @@ exports.mustBeLoggedIn = (req, res, next) => {
   }
 };
 
+exports.apiMustBeLoggedIn = (req, res, next) => {
+  try {
+    req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET);
+    next();
+  } catch (err) {
+    res.json("you must provide a valid token");
+  }
+};
+
 /* LOGIN */
 exports.login = (req, res) => {
   let user = new User(req.body);
@@ -78,6 +100,29 @@ exports.login = (req, res) => {
       req.session.save(() => {
         res.redirect("/");
       });
+    });
+};
+
+/* API LOGIN */
+exports.apiLogin = (req, res) => {
+  let user = new User(req.body);
+  user
+    .login()
+    .then((result) => {
+      res.json(
+        jwt.sign(
+          {
+            _id: user.data._id,
+          },
+          process.env.JWTSECRET,
+          {
+            expiresIn: "7d",
+          },
+        ),
+      );
+    })
+    .catch((err) => {
+      res.json("incorrect username/password!");
     });
 };
 
