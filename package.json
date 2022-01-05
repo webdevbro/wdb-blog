@@ -4,7 +4,8 @@
   "description": "full stack blog made with vanilla JS",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon db.js --ignore frontend-js --ignore public/ & webpack --watch",
+    "start": "node db.js",
+    "watch": "nodemon db.js --ignore frontend-js --ignore public/ & webpack --watch",
     "sass": "node-sass -w staticsite/scss/ -o staticsite/ --recursive"
   },
   "keywords": [
